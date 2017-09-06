@@ -58,7 +58,9 @@ export class DishdetailPage {
     modal.present();
     modal.onDidDismiss(data => {
       data.date = this.displayDate;
-      this.dish.comments.push(data)
+      if (data !== undefined) {
+        this.dish.comments.push(data);
+      }
     });
   
   }
