@@ -24,7 +24,6 @@ export class DishdetailPage {
   avgstars: string;
   numcomments: number;
   favorite : boolean=false;
-  displayDate = new Date().toLocaleDateString();
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     private favoriteservice: FavoriteProvider,
@@ -57,7 +56,7 @@ export class DishdetailPage {
     let modal = this.modalCtrl.create(CommentsPage);
     modal.present();
     modal.onDidDismiss(data => {
-      data.date = this.displayDate;
+      data.date = new Date().toISOString();
       if (data !== undefined) {
         this.dish.comments.push(data);
       }
