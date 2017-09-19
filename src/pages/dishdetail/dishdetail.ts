@@ -4,6 +4,7 @@ import { Dish } from '../../shared/dish';
 import { Comment } from '../../shared/comment';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
 import { CommentsPage } from '../../pages/comments/comments';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 /**
  * Generated class for the DishdetailPage page.
@@ -30,6 +31,7 @@ export class DishdetailPage {
     public modalCtrl : ModalController,
     private toastCtrl: ToastController,
     public actionSheetCtrl: ActionSheetController,
+    private socialsharing: SocialSharing,
     @Inject('BaseURL') private BaseURL) {
       this.dish = navParams.get('dish');
       this.numcomments = this.dish.comments.length;
@@ -78,6 +80,24 @@ export class DishdetailPage {
           text: 'Add Comments',
           handler: () => {
             this.openComments();
+          }
+        },
+        {
+          text: 'Share To Facebook',
+          handler: () => {
+            this.socialsharing.shareViaFacebook( 
+              this.dish.name + '---' + this.dish.description, this.BaseURL+this.dish.image, '')
+              .then(() => console.log("posted Successfully on Facebook"))
+              .catch(() => console.log("Failed to Post on Facebook"));
+          }
+        },
+        {
+          text: 'Share To Twitter',
+          handler: () => {
+            this.socialsharing.shareViaTwitter( 
+              this.dish.name + '---' + this.dish.description, this.BaseURL+this.dish.image, '')
+              .then(() => console.log("posted Successfully on Twitter"))
+              .catch(() => console.log("Failed to Post on Twitter"));
           }
         },
         {
